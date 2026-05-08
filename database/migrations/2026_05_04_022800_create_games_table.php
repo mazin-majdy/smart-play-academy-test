@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('game_type', [
                 'drag_drop',        // سحب وإفلات (6-8)
                 'visual_match',     // مطابقة بصرية (6-8)
-                'story_interactive', // قصة تفاعلية (6-8)
+                'story_interactive',// قصة تفاعلية (6-8)
                 'sound_guess',      // تخمين من الصوت (6-8)
                 'math_puzzle',      // لغز رياضي (9-11)
                 'logic_chain',      // سلسلة منطقية (9-11)

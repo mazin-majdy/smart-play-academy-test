@@ -7,23 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class GameSession extends Model
 {
     protected $fillable = [
-        'child_id',
-        'game_id',
-        'topic_id',
-        'status',
-        'difficulty_used',
-        'score',
-        'stars_earned',
-        'xp_earned',
-        'correct_count',
-        'wrong_count',
-        'hints_used',
-        'duration_seconds',
-        'started_at',
-        'ended_at',
-        'engagement_data',
-        'answers_log',
-        'difficulty_adjusted',
+        'child_id', 'game_id', 'topic_id', 'status',
+        'difficulty_used', 'score', 'stars_earned', 'xp_earned',
+        'correct_count', 'wrong_count', 'hints_used',
+        'duration_seconds', 'started_at', 'ended_at',
+        'engagement_data', 'answers_log', 'difficulty_adjusted',
     ];
 
     protected $casts = [
@@ -34,18 +22,9 @@ class GameSession extends Model
         'difficulty_adjusted' => 'boolean',
     ];
 
-    public function child()
-    {
-        return $this->belongsTo(Child::class);
-    }
-    public function game()
-    {
-        return $this->belongsTo(Game::class);
-    }
-    public function topic()
-    {
-        return $this->belongsTo(Topic::class);
-    }
+    public function child()  { return $this->belongsTo(Child::class); }
+    public function game()   { return $this->belongsTo(Game::class); }
+    public function topic()  { return $this->belongsTo(Topic::class); }
 
     // نسبة الصواب
     public function getAccuracyAttribute(): float

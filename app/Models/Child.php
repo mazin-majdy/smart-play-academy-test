@@ -1,6 +1,7 @@
 <?php
+
 namespace App\Models;
-use App\Models\User;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
@@ -11,13 +12,24 @@ class Child extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'username', 'password', 'avatar', 'avatar_color',
-        'birthdate', 'age_group', 'preferred_language', 'learning_style',
-        'total_stars', 'total_xp', 'current_level', 'streak_days',
-        'last_play_date', 'daily_limit_minutes', 'is_active',
+        'name',
+        'username',
+        'password',
+        'avatar',
+        'avatar_color',
+        'birthdate',
+        'age_group',
+        'preferred_language',
+        'learning_style',
+        'total_stars',
+        'total_xp',
+        'current_level',
+        'streak_days',
+        'last_play_date',
+        'daily_limit_minutes',
+        'is_active',
     ];
 
-    
     protected $hidden = ['password'];
 
     protected $casts = [
@@ -30,14 +42,14 @@ class Child extends Model
     public function parents()
     {
         return $this->belongsToMany(User::class, 'child_user')
-                    ->wherePivot('relation', 'parent')
-                    ->withPivot('is_primary');
+            ->wherePivot('relation', 'parent')
+            ->withPivot('is_primary');
     }
 
     public function teachers()
     {
         return $this->belongsToMany(User::class, 'child_user')
-                    ->wherePivot('relation', 'teacher');
+            ->wherePivot('relation', 'teacher');
     }
 
     public function progress()
@@ -53,7 +65,7 @@ class Child extends Model
     public function achievements()
     {
         return $this->belongsToMany(Achievement::class, 'child_achievements')
-                    ->withPivot('earned_at');
+            ->withPivot('earned_at');
     }
 
     public function weeklyReports()

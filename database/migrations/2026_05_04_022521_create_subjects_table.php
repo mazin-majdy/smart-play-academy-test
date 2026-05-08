@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('icon');            // emoji أو اسم أيقونة
             $table->string('color');           // لون المادة
             $table->enum('age_groups', ['all', '6-8', '9-11', '12-14'])
-                ->default('all');
+                  ->default('all');
             $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
@@ -30,9 +30,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('subject_id')->constrained()->cascadeOnDelete();
             $table->foreignId('parent_topic_id')
-                ->nullable()
-                ->constrained('topics')
-                ->nullOnDelete(); // للموضوعات الفرعية
+                  ->nullable()
+                  ->constrained('topics')
+                  ->nullOnDelete(); // للموضوعات الفرعية
 
             $table->string('name');
             $table->string('name_en')->nullable();

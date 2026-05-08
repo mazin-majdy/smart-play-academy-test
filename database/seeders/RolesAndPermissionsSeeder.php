@@ -16,30 +16,19 @@ class RolesAndPermissionsSeeder extends Seeder
         // ── PERMISSIONS ──
         $permissions = [
             // Children management
-            'create children',
-            'view children',
-            'edit children',
-            'delete children',
+            'create children', 'view children', 'edit children', 'delete children',
 
             // Content
-            'manage subjects',
-            'manage topics',
-            'manage games',
-            'manage questions',
+            'manage subjects', 'manage topics', 'manage games', 'manage questions',
 
             // Reports
-            'view own reports',
-            'view all reports',
-            'export reports',
+            'view own reports', 'view all reports', 'export reports',
 
             // AI
-            'use ai tutor',
-            'manage ai content',
+            'use ai tutor', 'manage ai content',
 
             // Admin
-            'manage users',
-            'manage subscriptions',
-            'view analytics',
+            'manage users', 'manage subscriptions', 'view analytics',
         ];
 
         foreach ($permissions as $perm) {
@@ -54,30 +43,21 @@ class RolesAndPermissionsSeeder extends Seeder
         // الأهل
         $parent = Role::firstOrCreate(['name' => 'parent']);
         $parent->givePermissionTo([
-            'create children',
-            'view children',
-            'edit children',
-            'view own reports',
-            'use ai tutor',
+            'create children', 'view children', 'edit children',
+            'view own reports', 'use ai tutor',
         ]);
 
         // المعلم
         $teacher = Role::firstOrCreate(['name' => 'teacher']);
         $teacher->givePermissionTo([
-            'view children',
-            'view own reports',
-            'export reports',
-            'use ai tutor',
+            'view children', 'view own reports', 'export reports', 'use ai tutor',
         ]);
 
         // مدير المحتوى
         $contentManager = Role::firstOrCreate(['name' => 'content_manager']);
         $contentManager->givePermissionTo([
-            'manage subjects',
-            'manage topics',
-            'manage games',
-            'manage questions',
-            'manage ai content',
+            'manage subjects', 'manage topics', 'manage games',
+            'manage questions', 'manage ai content',
         ]);
 
         // السوبر أدمن

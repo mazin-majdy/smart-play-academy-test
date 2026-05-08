@@ -33,7 +33,7 @@ return new class extends Migration
             // إعدادات التعلم
             $table->string('preferred_language')->default('ar'); // ar / en
             $table->enum('learning_style', ['visual', 'auditory', 'mixed'])
-                ->default('mixed');
+                  ->default('mixed');
 
             // نقاط اللعب
             $table->integer('total_stars')->default(0);
