@@ -24,14 +24,23 @@ class Topic extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
     public function games()
     {
         return $this->hasMany(Game::class);
     }
+
+    // ✅ العلاقة المضافة: القسم يحتوي على أسئلة
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public function parent()
     {
         return $this->belongsTo(Topic::class, 'parent_topic_id');
     }
+
     public function children()
     {
         return $this->hasMany(Topic::class, 'parent_topic_id');

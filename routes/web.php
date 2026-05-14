@@ -58,3 +58,22 @@ Route::middleware(['auth', 'role:admin|content_manager'])->prefix('admin')->name
 Route::get('/usersshow', function () {
     return "users show";
 })->name('admin.users.show');
+
+use App\Http\Controllers\PlaySessionController;
+
+Route::middleware(['auth'])->prefix('play')->name('play.')->group(function () {
+    Route::post('/child/{child}/game/{game}/start', [PlaySessionController::class, 'start'])->name('start');
+    Route::post('/session/{session}/answer', [PlaySessionController::class, 'submitAnswer'])->name('answer');
+    Route::post('/session/{session}/finish', [PlaySessionController::class, 'finish'])->name('finish');
+});
+
+// // Route لعرض صفحة اللعبة
+// Route::get('/play/{child}/{game}', function ($childId, $gameId) {
+//     $child = App\Models\Child::findOrFail($childId);
+//     $game = App\Models\Game::findOrFail($gameId);
+
+//     // تأكد إن الطفل تابع للمستخدم
+//     abort_unless(auth()->user()->children->contains($child), 403);
+
+//     return view('play.game', compact('child', 'game'));
+// })->middleware('auth')->name('play.view');

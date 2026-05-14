@@ -15,6 +15,13 @@ class TopicController extends Controller
         return view('admin.topics.index', compact('topics', 'subjects'));
     }
 
+    // ✅ المضافة: عرض صفحة الإضافة
+    public function create()
+    {
+        $subjects = Subject::active()->pluck('name', 'id');
+        return view('admin.topics.create', compact('subjects'));
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -26,6 +33,20 @@ class TopicController extends Controller
         ]);
         Topic::create($data);
         return back()->with('success', 'تمت إضافة الموضوع');
+    }
+
+    // ✅ المضافة: عرض صفحة التفاصيل
+    public function show(Topic $topic)
+    {
+        $topic->load('subject', 'games'); // تحميل العلاقات اللازمة للعرض
+        return view('admin.topics.show', compact('topic'));
+    }
+
+    // ✅ المضافة: عرض صفحة التعديل
+    public function edit(Topic $topic)
+    {
+        $subjects = Subject::active()->pluck('name', 'id');
+        return view('admin.topics.edit', compact('topic', 'subjects'));
     }
 
     public function update(Request $request, Topic $topic)

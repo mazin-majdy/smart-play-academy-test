@@ -10,8 +10,17 @@ class SubjectController extends Controller
 {
     public function index()
     {
+        // 1️⃣ جلب المواد مع عدد المواضيع
         $subjects = Subject::withCount('topics')->orderBy('sort_order')->get();
-        return view('admin.subjects.index', compact('subjects'));
+
+        // 2️⃣ جلب المواضيع مع العلاقات اللازمة للعرض ✅ هذا اللي كان ناقص
+        $topics = \App\Models\Topic::with('subject')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('difficulty_level', 'asc')
+            ->paginate(10); // أو 15 أو 30 حسب رغبتك
+
+        // 3️⃣ تمرير المتغيرين للفيو
+        return view('admin.subjects.index', compact('subjects', 'topics'));
     }
 
     public function store(Request $request)

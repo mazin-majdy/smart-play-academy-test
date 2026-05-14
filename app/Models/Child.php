@@ -72,6 +72,11 @@ class Child extends Model
     {
         return $this->hasMany(WeeklyReport::class);
     }
+    
+    public function answers()
+    {
+        return $this->hasMany(GameSessionAnswer::class);
+    }
 
     // ── HELPERS ──
 

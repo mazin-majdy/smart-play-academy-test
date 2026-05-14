@@ -7,11 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class GameSession extends Model
 {
     protected $fillable = [
-        'child_id', 'game_id', 'topic_id', 'status',
-        'difficulty_used', 'score', 'stars_earned', 'xp_earned',
-        'correct_count', 'wrong_count', 'hints_used',
-        'duration_seconds', 'started_at', 'ended_at',
-        'engagement_data', 'answers_log', 'difficulty_adjusted',
+        'child_id',
+        'game_id',
+        'topic_id',
+        'status',
+        'difficulty_used',
+        'score',
+        'stars_earned',
+        'xp_earned',
+        'correct_count',
+        'wrong_count',
+        'hints_used',
+        'duration_seconds',
+        'started_at',
+        'ended_at',
+        'engagement_data',
+        'answers_log',
+        'difficulty_adjusted',
     ];
 
     protected $casts = [
@@ -22,15 +34,32 @@ class GameSession extends Model
         'difficulty_adjusted' => 'boolean',
     ];
 
-    public function child()  { return $this->belongsTo(Child::class); }
-    public function game()   { return $this->belongsTo(Game::class); }
-    public function topic()  { return $this->belongsTo(Topic::class); }
-
-    // نسبة الصواب
-    public function getAccuracyAttribute(): float
+    public function child()
     {
-        $total = $this->correct_count + $this->wrong_count;
-        return $total > 0 ? round($this->correct_count / $total * 100, 1) : 0;
+        return $this->belongsTo(Child::class);
+    }
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
+    }
+    // داخل كلاس GameSession
+    public function answers()
+    {
+        return $this->hasMany(GameSessionAnswer::class);
+    }
+
+    // Helper: حساب دقة الإجابات في الجلسة
+    public function getAccuracyAttribute()
+    {
+        $total = $this->answers()->count();
+        if ($total === 0) return 0;
+
+        $correct = $this->answers()->where('is_correct', true)->count();
+        return round(($correct / $total) * 100);
     }
 
     // إنهاء الجلسة وحساب المكافآت
